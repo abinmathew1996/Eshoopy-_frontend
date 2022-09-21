@@ -18,8 +18,12 @@
             "tsConfig": "apps/admin/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/admin/src/favicon.ico", "apps/admin/src/assets"],
-            "styles": ["apps/admin/src/styles.css"],
-            "scripts": []
+            "styles": [
+              "apps/admin/src/styles.css",
+              "node_modules/quill/dist/quill.core.css",
+              "node_modules/quill/dist/quill.snow.css"
+            ],
+            "scripts": ["node_modules/quill/dist/quill.js"]
           },
           "configurations": {
             "production": {
@@ -139,8 +143,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/heisenberg/src/environments/environment.ts",
-                  "with": "apps/heisenberg/src/environments/environment.prod.ts"
+                  "replace": "environments/environment.ts",
+                  "with": "environments/environment.prod.ts"
                 }
               ],
               "optimization": true,

@@ -1,0 +1,72 @@
+<p-toast></p-toast>
+<div class="admin-page">
+  <p-card
+    [header]="editMode ? 'Edit Category' : 'Add Categories'"
+    subheader="list of categories added"
+  >
+    <div class="p-grid mb-5">
+      <div class="p-col-12">
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+            <p-button
+              styleClass="p-button-primary mr-2"
+              [label]="editMode ? 'Update' : 'Create'"
+              icon="pi pi-plus"
+              (click)="onSubmit()"
+            ></p-button>
+            <p-button
+              styleClass="p-button-secondary"
+              label="Cancel"
+              icon="pi pi-arrow-circle-left"
+            ></p-button>
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <form [formGroup]="form">
+          <div class="card">
+            <div class="formgrid grid">
+              <div class="field col">
+                <label for="name">Name</label>
+                <input
+                  formControlName="name"
+                  id="name"
+                  type="text"
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                />
+                <small
+                  *ngIf="this.form.controls.name.invalid && isSumitted"
+                  class="p-error"
+                  >Name is required</small
+                >
+              </div>
+              <div class="field col">
+                <label for="icon">Icon</label>
+                <input
+                  formControlName="icon"
+                  id="Icon"
+                  type="text"
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+                />
+                <small
+                  *ngIf="this.form.controls.icon.invalid && isSumitted"
+                  class="p-error"
+                  >Icon is required</small
+                >
+              </div>
+              <div class="p-field p-col">
+                <label for="color">color</label>
+                <div class="mt-2">
+                  <p-colorPicker formControlName="color"></p-colorPicker>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>
