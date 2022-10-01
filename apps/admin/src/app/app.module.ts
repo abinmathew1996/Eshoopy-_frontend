@@ -2,19 +2,18 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
-import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ShellComponent } from './shared/shell/shell.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
-import { CategoriesListComponent } from './categories/categories-list/categories-list.component';
+import { CategoriesListComponent } from './pages/categories/categories-list/categories-list.component';
 import { CardModule } from 'primeng/card';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CategoriesService } from '@aphrodite/products';
 import { InputTextModule } from 'primeng/inputtext';
-import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
+import { CategoriesFormComponent } from './pages/categories/categories-form/categories-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -29,7 +28,12 @@ import { EditorModule } from 'primeng/editor';
 import { UserListComponent } from './pages/user-list/user-list.component';
 import { UserFormComponent } from './pages/user-form/user-form.component';
 import { TagModule } from 'primeng/tag';
-import {InputMaskModule} from 'primeng/inputmask';
+import { InputMaskModule } from 'primeng/inputmask';
+import { OrdersListComponent } from './pages/orders/orders-list/orders-list.component';
+import { OrdersDetailComponent } from './pages/orders/orders-detail/orders-detail.component';
+import {FieldsetModule} from 'primeng/fieldset';
+import { JwtInterceptor, UsersModule } from '@aphrodite/users';
+import { AppRoutingModule } from './app-routing.module';
 const ux_module = [
   CardModule,
   InputTextModule,
@@ -44,57 +48,11 @@ const ux_module = [
   InputSwitchModule,
   EditorModule,
   TagModule,
-  InputMaskModule
+  InputMaskModule,
+  FieldsetModule
 ];
 
-const routes: Routes = [
-  {
-    path: '',
-    component: ShellComponent,
-    children: [
-      {
-        path: 'dashboard',
-        component: DashboardComponent,
-      },
-      {
-        path: 'categories',
-        component: CategoriesListComponent,
-      },
-      {
-        path: 'categories/form',
-        component: CategoriesFormComponent,
-      },
-      {
-        path: 'categories/form:id',
-        component: CategoriesFormComponent,
-      },
-      {
-        path: 'products',
-        component: ProductListComponent,
-      },
-      {
-        path: 'products/form',
-        component: ProductFormComponent,
-      },
-      {
-        path: 'products/form:id',
-        component: ProductFormComponent,
-      },
-      {
-        path: 'users',
-        component: UserListComponent,
-      },
-      {
-        path: 'users/form',
-        component: UserFormComponent,
-      },
-      {
-        path: 'users/form:id',
-        component: UserFormComponent,
-      },
-    ],
-  },
-];
+
 
 @NgModule({
   declarations: [
@@ -108,19 +66,21 @@ const routes: Routes = [
     ProductFormComponent,
     UserListComponent,
     UserFormComponent,
+    OrdersListComponent,
+    OrdersDetailComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes, {
-      initialNavigation: 'enabledBlocking',
-    }),
-    ...ux_module,
-    HttpClientModule,
+    UsersModule,
+    ...ux_module
   ],
-  providers: [CategoriesService, MessageService,ConfirmationService],
+  providers: [CategoriesService, MessageService, ConfirmationService,{provide:HTTP_INTERCEPTORS,useClass:JwtInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

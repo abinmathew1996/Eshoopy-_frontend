@@ -1,11 +1,12 @@
 export class user{
+    
     id?:string;
     name?: string;
+    email!: string;
     password? :string;
-    email?:string;
     phone?:string;
-    tocken?:string;
-    isAdmin?:string;
+    token?:string;
+    isAdmin?:boolean;
     street?:string;
     apartment?:string;
     zip?:string;

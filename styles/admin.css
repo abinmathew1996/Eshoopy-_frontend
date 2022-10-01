@@ -12,9 +12,11 @@
 @import '~primeflex/primeflex.css';
 @import './base/cofiguration.css';
 
-
+/* shared */
 @import './apps/admin/shell.css';
+@import './apps/admin/dashboard.css';
 
 
 /* Libs */
 @import './libs/ui/ui.css';
+@import './libs/users/users.css';

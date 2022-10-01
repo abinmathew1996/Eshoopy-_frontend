@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { user } from 'libs/users/src/lib/models/user';
 import { UsersService } from 'libs/users/src/lib/services/users.service';
 import { MessageService } from 'primeng/api';
-import * as countriesLib from 'i18n-iso-countries'
+import * as countriesLib from 'i18n-iso-countries';
 
 declare const require: (arg0: string) => countriesLib.LocaleData;
 @Component({
@@ -16,33 +16,21 @@ export class UserFormComponent implements OnInit {
   form!: FormGroup;
   isSubmitted = false;
   editmode = false;
-  currentUserId!: string;
-  countries:any = [];
+  currentUserId:any;
+  countries: any = [];
   constructor(
     private messageService: MessageService,
     private formBuilder: FormBuilder,
     private usersService: UsersService,
     private route: ActivatedRoute,
-    private router :Router
   ) {}
 
   ngOnInit(): void {
-    this.checkEditingMode();
     this._initUserForm();
     this._getCountries();
+    this.checkEditingMode();
   }
 
-  private _getCountries(){
-    countriesLib.registerLocale(require("i18n-iso-countries/langs/en.json"));
-    this.countries = Object.entries(countriesLib.getNames("en", {select: "official"})).map((entry)=>{
-      return {
-        id:entry[0],
-        name: entry[1]
-      }
-    })
-    console.log(this.countries);
-    
-  }
   private _initUserForm() {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
@@ -54,48 +42,22 @@ export class UserFormComponent implements OnInit {
       apartment: [''],
       zip: [''],
       city: [''],
-      country: ['']
+      country: [''],
     });
-
+  }
+  private _getCountries() {
+    this.countries = this.usersService.getCountries();
   }
 
-  onSubmit(){
-    this.isSubmitted = true;
-    if (this.form.invalid) {
-      return;
-    }
-    const user: any = {
-      id: this.currentUserId,
-      name: this.userForm['name'].value,
-      email: this.userForm['email'].value,
-      phone: this.userForm['phone'].value,
-      isAdmin: this.userForm['isAdmin'].value,
-      street: this.userForm['street'].value,
-      apartment: this.userForm['apartment'].value,
-      zip: this.userForm['zip'].value,
-      city: this.userForm['city'].value,
-      country: this.userForm['country'].value
-    };
-
-    if (this.editmode) {
-      this.updateUser(user);
-    } else {
-      this.addUser(user);
-    }
-    console.log(user);
-  }
-
-  onCancle(){}
-
-  private addUser(user: any) {
+  private addUser(user:any) {
     this.usersService.createUser(user).subscribe({
-      next: (res) => {
+      next: (user) => {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail: `user ${res.name} is created`,
+          detail: `user ${user.name} is created`,
         });
-        this.router.navigateByUrl('users');
+        // this.router.navigateByUrl('users');
       },
       error: (error) => {
         this.messageService.add({
@@ -113,9 +75,9 @@ export class UserFormComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Success',
-          detail:'user is created' ,
+          detail: 'user is created',
         });
-        this.router.navigateByUrl('users');
+        // this.router.navigateByUrl('users');
       },
       error: (error) => {
         this.messageService.add({
@@ -150,6 +112,34 @@ export class UserFormComponent implements OnInit {
       }
     });
   }
+  onSubmit() {
+    this.isSubmitted = true;
+    if (this.form.invalid) {
+      return;
+    }
+    const user: user = {
+      id: this['currentUserId'],
+      name: this.userForm['name'].value,
+      email: this.userForm['email'].value,
+      phone: this.userForm['phone'].value,
+      isAdmin: this.userForm['isAdmin'].value,
+      street: this.userForm['street'].value,
+      apartment: this.userForm['apartment'].value,
+      zip: this.userForm['zip'].value,
+      city: this.userForm['city'].value,
+      country: this.userForm['country'].value,
+    };
+
+    if (this.editmode) {
+      this.updateUser(user);
+      console.log(user);
+    } else {
+      this.addUser(user);
+      console.log(user);
+    }
+  }
+  onCancle() {}
+
   get userForm() {
     return this.form.controls;
   }

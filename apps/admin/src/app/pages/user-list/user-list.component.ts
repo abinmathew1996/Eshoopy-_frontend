@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { user } from 'libs/users/src/lib/models/user';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { UsersService } from '../../../../../../libs/users/src/lib/services/users.service';
+import {  MessageService } from 'primeng/api';
+import { UsersService } from 'libs/users/src/lib/services/users.service';
 
 @Component({
   selector: 'bluebits-user-list',
@@ -13,7 +13,6 @@ export class UserListComponent implements OnInit {
   users:user[]=[];
   constructor(
     private messageService:MessageService,
-    private confirmation:ConfirmationService,
     private router: Router,
     private userService: UsersService,
     
