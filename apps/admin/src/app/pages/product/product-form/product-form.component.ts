@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesService, productsService } from '@aphrodite/products';
 import { MessageService } from 'primeng/api';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'bluebits-product-form',
   templateUrl: './product-form.component.html',
   styles: [],
 })
-export class ProductFormComponent implements OnInit {
+export class ProductFormComponent implements OnInit, OnDestroy {
   editmode = false;
   form!: FormGroup;
   isSubmitted = false;
   catagories: any = [];
   imageDisplay!: any | ArrayBuffer;
   currentProductId!: string;
+  endsubs$: Subject<any> = new Subject();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,6 +31,11 @@ export class ProductFormComponent implements OnInit {
     this._getCategories();
     this._checkEditMode();
     this.initForm();
+  }
+  ngOnDestroy() {
+    console.log('category distroyed');
+    this.endsubs$.next('');
+    this.endsubs$.complete();
   }
 
   private initForm() {
@@ -46,33 +53,40 @@ export class ProductFormComponent implements OnInit {
   }
 
   private _getCategories() {
-    this.categoriesService.getCategories().subscribe((categories) => {
-      this.catagories = categories;
-    });
+    this.categoriesService
+      .getCategories()
+      .pipe(takeUntil(this.endsubs$))
+      .subscribe((categories) => {
+        this.catagories = categories;
+      });
   }
 
   private _addProduct(productData: FormData) {
-    this.productsService.createProduct(productData).subscribe({
-      next: (product) => {
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Success',
-          detail: `Product ${product.name} is created!`,
-        });
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Error',
-          detail: 'Product is not created!',
-        });
-      },
-    });
+    this.productsService
+      .createProduct(productData)
+      .pipe(takeUntil(this.endsubs$))
+      .subscribe({
+        next: (product) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: `Product ${product.name} is created!`,
+          });
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Product is not created!',
+          });
+        },
+      });
   }
 
-  private  (productFormData: FormData) {
+  private(productFormData: FormData) {
     this.productsService
       .updateProduct(productFormData, this.currentProductId)
+      .pipe(takeUntil(this.endsubs$))
       .subscribe({
         next: (): void => {
           this.messageService.add({
@@ -92,7 +106,7 @@ export class ProductFormComponent implements OnInit {
   }
 
   private _checkEditMode() {
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
       if (params['id']) {
         this.editmode = true;
         this.currentProductId = params['id'];

@@ -1,0 +1,14 @@
+.nav li{
+list-style: none;
+display: inline-block;
+margin-right: 15px;
+
+}
+.nav a{
+    color:#9E9E9E;
+    cursor: pointer;
+    
+}
+.nav a:hover{
+color:  #ff3a00;;
+}

@@ -1,22 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { product, productsService } from '@aphrodite/products';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'bluebits-product-list',
   templateUrl: './product-list.component.html',
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit,OnDestroy {
   products:any;
-
+  endsubs$: Subject<any> = new Subject();
   constructor(private productservice :productsService,
     private router:Router) {}
 
   ngOnInit(): void {
     this.getProducts();
   }
+  ngOnDestroy() {
+    console.log('category distroyed');
+    this.endsubs$.next('');
+    this.endsubs$.complete();
+  }
   private getProducts(){
-    this.productservice.getProducts().subscribe(prod =>{
+    this.productservice.getProducts().pipe(takeUntil(this.endsubs$)).subscribe(prod =>{
 this.products = prod;
 console.log(prod);
 

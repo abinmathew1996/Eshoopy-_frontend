@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriesService, category } from '@aphrodite/products';
+import { CategoriesService } from '@aphrodite/products';
 import { MessageService } from 'primeng/api';
-import { timer } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { timer } from 'rxjs';
   templateUrl: './categories-form.component.html',
   styles: [],
 })
-export class CategoriesFormComponent implements OnInit {
+export class CategoriesFormComponent implements OnInit , OnDestroy {
   form = this.formBuilder.group({
     name: ['', Validators.required],
     icon: ['', Validators.required],
@@ -21,6 +21,8 @@ export class CategoriesFormComponent implements OnInit {
   isSumitted = false;
   editMode = false;
   currentCategoryID!: string;
+  endsubs$: Subject<any> = new Subject();
+
 
   constructor(
     private messageService: MessageService,
@@ -32,6 +34,11 @@ export class CategoriesFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkEditingMode();
+  }
+  ngOnDestroy() {
+    console.log('category distroyed');
+    this.endsubs$.next('');
+    this.endsubs$.complete();
   }
 
   onSubmit() {
@@ -55,7 +62,7 @@ export class CategoriesFormComponent implements OnInit {
   }
 
   private addCategory(category: any) {
-    this.categoryservice.createCategories(category).subscribe({
+    this.categoryservice.createCategories(category).pipe(takeUntil(this.endsubs$)).subscribe({
       next: (res) => {
         this.messageService.add({
           severity: 'success',
@@ -75,7 +82,7 @@ export class CategoriesFormComponent implements OnInit {
   }
 
   private updateCategory(category: any) {
-    this.categoryservice.updateCategories(category).subscribe({
+    this.categoryservice.updateCategories(category).pipe(takeUntil(this.endsubs$)).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'success',
@@ -94,14 +101,14 @@ export class CategoriesFormComponent implements OnInit {
     });
   }
   private checkEditingMode() {
-    this.activevatedrouter.params.subscribe((params) => {
+    this.activevatedrouter.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
       // console.log(params);
       // console.log(params['id']);
 
       if (params['id']) {
         this.editMode = true;
         this.currentCategoryID = params['id'];
-        this.categoryservice.getCategory(params['id']).subscribe((category) => {
+        this.categoryservice.getCategory(params['id']).pipe(takeUntil(this.endsubs$)).subscribe((category) => {
           // console.log("category");
 
           this.form.controls.name.setValue(category.name);

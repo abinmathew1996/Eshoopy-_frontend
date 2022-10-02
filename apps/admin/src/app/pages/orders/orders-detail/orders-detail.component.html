@@ -16,6 +16,7 @@
           <p-dropdown
             [options]="orderStatuses"
             [(ngModel)]="selectedStatus"
+            
             optionValue="id"
             (onChange)="onStatusChange($event)"
             optionLabel="name"
@@ -37,13 +38,13 @@
         <div class="p col-2 p text-bold">SubTotal</div>
       </div>
       <div class="p grid mb-5" *ngFor="let orderItem of order.orderItems">
-        <div class="p col-2">{{ orderItem.product.name }}</div>
-        <div class="p col-2">{{ orderItem.product.brand }}</div>
-        <div class="p col-2">{{ orderItem.product.category.name }}</div>
-        <div class="p col-2">{{ orderItem.product.price | currency }}</div>
-        <div class="p col-2">{{ orderItem.product.quantity }}</div>
+        <div class="p col-2">{{ orderItem.name }}</div>
+        <div class="p col-2">{{ orderItem.brand }}</div>
+        <div class="p col-2">{{ orderItem.category.name }}</div>
+        <div class="p col-2">{{ orderItem.price | currency }}</div>
+        <div class="p col-2">{{ orderItem.quantity }}</div>
         <div class="p col-2">
-          {{ orderItem.product.price * orderItem.quantity | currency }}
+          {{ orderItem.price * orderItem.quantity | currency }}
         </div>
       </div>
       <div class="p grid" style="color: green">
@@ -64,11 +65,11 @@
         </div>
         <div class="p col-4 p text-bold">
           <h5>Custamer Info</h5>
-          <p>{{ order.user.name }}</p>
+          <p>{{ order['user'].name }}</p>
         </div>
         <div class="p col-4 p text-bold">
           <h5>Contact Info</h5>
-          <p>{{ order.phone }}</p>
+          <p>{{ order['phone'] }}</p>
         </div>
       </div>
     </p-fieldset>

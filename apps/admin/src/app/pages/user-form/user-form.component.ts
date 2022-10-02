@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { user } from 'libs/users/src/lib/models/user';
 import { UsersService } from 'libs/users/src/lib/services/users.service';
 import { MessageService } from 'primeng/api';
 import * as countriesLib from 'i18n-iso-countries';
+import { Subject, takeUntil } from 'rxjs';
 
 declare const require: (arg0: string) => countriesLib.LocaleData;
 @Component({
@@ -12,12 +13,14 @@ declare const require: (arg0: string) => countriesLib.LocaleData;
   templateUrl: './user-form.component.html',
   styles: [],
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit,OnDestroy {
   form!: FormGroup;
   isSubmitted = false;
   editmode = false;
   currentUserId:any;
   countries: any = [];
+  endsubs$: Subject<any> = new Subject();
+
   constructor(
     private messageService: MessageService,
     private formBuilder: FormBuilder,
@@ -30,6 +33,12 @@ export class UserFormComponent implements OnInit {
     this._getCountries();
     this.checkEditingMode();
   }
+  ngOnDestroy() {
+    console.log('category distroyed');
+    this.endsubs$.next('');
+    this.endsubs$.complete();
+  }
+
 
   private _initUserForm() {
     this.form = this.formBuilder.group({
@@ -50,7 +59,7 @@ export class UserFormComponent implements OnInit {
   }
 
   private addUser(user:any) {
-    this.usersService.createUser(user).subscribe({
+    this.usersService.createUser(user).pipe(takeUntil(this.endsubs$)).subscribe({
       next: (user) => {
         this.messageService.add({
           severity: 'success',
@@ -70,7 +79,7 @@ export class UserFormComponent implements OnInit {
   }
 
   private updateUser(user: user) {
-    this.usersService.updateUser(user).subscribe({
+    this.usersService.updateUser(user).pipe(takeUntil(this.endsubs$)).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'success',
@@ -89,7 +98,7 @@ export class UserFormComponent implements OnInit {
     });
   }
   private checkEditingMode() {
-    this.route.params.subscribe((params) => {
+    this.route.params.pipe(takeUntil(this.endsubs$)).subscribe((params) => {
       // console.log(params);
       // console.log(params['id']);
 

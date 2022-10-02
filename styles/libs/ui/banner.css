@@ -1,0 +1,27 @@
+.banner{
+    height: 280px;
+    width:100%;
+    background-color: #d7effb;
+    border-radius: 15px;
+
+}
+
+.banner .banner-text{
+    color:#616161;
+    margin-top: 50px;
+    
+}
+
+.banner .banner-text h1
+{
+    margin:0;
+    font-size: 3em;
+    font-weight: 400;
+}
+
+.banner .banner-text h2
+{
+    margin:0;
+    font-size: 2em;
+    font-weight: 300;
+}

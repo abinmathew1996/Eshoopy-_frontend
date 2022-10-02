@@ -1,0 +1,58 @@
+{
+  "category": [
+    {
+      "_id": {
+        "$oid": "5f15d467f3a046427a1c26e1"
+      },
+      "name": "Mobile",
+      "__v": 0,
+      "color": "#F0E4E1",
+      "icon": "mobile"
+    },
+    {
+      "_id": {
+        "$oid": "5f15d545f3a046427a1c26e2"
+      },
+      "name": "Beauty",
+      "__v": 0,
+      "color": "#F0E8DE",
+      "icon": "palette"
+    },
+    {
+      "_id": {
+        "$oid": "5f15d54cf3a046427a1c26e3"
+      },
+      "name": "Computers",
+      "__v": 0,
+      "color": "#E1F0E7",
+      "icon": "desktop"
+    },
+    {
+      "_id": {
+        "$oid": "5f15d5b2cb4a6642bddc0fe7"
+      },
+      "name": "House",
+      "__v": 0,
+      "color": "#E2E1F0",
+      "icon": "home"
+    },
+    {
+      "_id": {
+        "$oid": "5f9d7e938680aa1d979d7e19"
+      },
+      "name": "Games",
+      "__v": 0,
+      "color": "#ffb8b8",
+      "icon": "sun"
+    },
+    {
+      "_id": {
+        "$oid": "608fe08365074604f45ce544"
+      },
+      "name": "Cameras",
+      "icon": "camera",
+      "color": "#ede4da",
+      "__v": 0
+    }
+  ]
+}

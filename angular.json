@@ -7,9 +7,9 @@
       "root": "apps/admin",
       "sourceRoot": "apps/admin/src",
       "prefix": "bluebits",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "executor": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/admin",
             "index": "apps/admin/src/index.html",
@@ -56,7 +56,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "executor": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "admin:build"
           },
@@ -67,13 +67,13 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "admin:build"
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "apps/admin/src/**/*.ts",
@@ -82,7 +82,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/admin"],
           "options": {
             "jestConfig": "apps/admin/jest.config.js",
@@ -95,9 +95,9 @@
       "root": "apps/admin-e2e",
       "sourceRoot": "apps/admin-e2e/src",
       "projectType": "application",
-      "architect": {
+      "targets": {
         "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+          "executor": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/admin-e2e/cypress.json",
             "tsConfig": "apps/admin-e2e/tsconfig.e2e.json",
@@ -110,7 +110,7 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/admin-e2e/**/*.{js,ts}"]
           }
@@ -122,9 +122,9 @@
       "root": "apps/heisenberg",
       "sourceRoot": "apps/heisenberg/src",
       "prefix": "bluebits",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "executor": "@angular-devkit/build-angular:browser",
           "options": {
             "outputPath": "dist/apps/heisenberg",
             "index": "apps/heisenberg/src/index.html",
@@ -170,7 +170,7 @@
           }
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
+          "executor": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "heisenberg:build"
           },
@@ -181,13 +181,13 @@
           }
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "executor": "@angular-devkit/build-angular:extract-i18n",
           "options": {
             "browserTarget": "heisenberg:build"
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "apps/heisenberg/src/**/*.ts",
@@ -196,7 +196,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/apps/heisenberg"],
           "options": {
             "jestConfig": "apps/heisenberg/jest.config.js",
@@ -209,9 +209,9 @@
       "root": "apps/heisenberg-e2e",
       "sourceRoot": "apps/heisenberg-e2e/src",
       "projectType": "application",
-      "architect": {
+      "targets": {
         "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+          "executor": "@nrwl/cypress:cypress",
           "options": {
             "cypressConfig": "apps/heisenberg-e2e/cypress.json",
             "tsConfig": "apps/heisenberg-e2e/tsconfig.e2e.json",
@@ -224,7 +224,7 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/heisenberg-e2e/**/*.{js,ts}"]
           }
@@ -236,9 +236,9 @@
       "root": "libs/orders",
       "sourceRoot": "libs/orders/src",
       "prefix": "orders",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/angular:ng-packagr-lite",
+          "executor": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/orders/tsconfig.lib.json",
             "project": "libs/orders/ng-package.json"
@@ -250,7 +250,7 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/orders/src/**/*.ts",
@@ -259,7 +259,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/orders"],
           "options": {
             "jestConfig": "libs/orders/jest.config.js",
@@ -273,9 +273,9 @@
       "root": "libs/products",
       "sourceRoot": "libs/products/src",
       "prefix": "bluebits",
-      "architect": {
+      "targets": {
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/products/src/**/*.ts",
@@ -284,7 +284,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/products"],
           "options": {
             "jestConfig": "libs/products/jest.config.js",
@@ -294,34 +294,36 @@
       }
     },
     "ui": {
+      "projectType": "library",
       "root": "libs/ui",
       "sourceRoot": "libs/ui/src",
-      "projectType": "library",
-      "architect": {
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": ["libs/ui/**/*.ts"]
-          }
-        },
+      "prefix": "aphrodite",
+      "targets": {
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/ui"],
           "options": {
-            "jestConfig": "libs/ui/jest.config.js",
+            "jestConfig": "libs/ui/jest.config.ts",
             "passWithNoTests": true
           }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui/**/*.ts", "libs/ui/**/*.html"]
+          }
         }
-      }
+      },
+      "tags": []
     },
     "users": {
       "projectType": "library",
       "root": "libs/users",
       "sourceRoot": "libs/users/src",
       "prefix": "users",
-      "architect": {
+      "targets": {
         "build": {
-          "builder": "@nrwl/angular:ng-packagr-lite",
+          "executor": "@nrwl/angular:ng-packagr-lite",
           "options": {
             "tsConfig": "libs/users/tsconfig.lib.json",
             "project": "libs/users/ng-package.json"
@@ -333,7 +335,7 @@
           }
         },
         "lint": {
-          "builder": "@nrwl/linter:eslint",
+          "executor": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": [
               "libs/users/src/**/*.ts",
@@ -342,7 +344,7 @@
           }
         },
         "test": {
-          "builder": "@nrwl/jest:jest",
+          "executor": "@nrwl/jest:jest",
           "outputs": ["coverage/libs/users"],
           "options": {
             "jestConfig": "libs/users/jest.config.js",

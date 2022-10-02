@@ -2,53 +2,49 @@
   <p-card header="Dashboard" subheader="Latest Update">
     <div class="p grid">
       <div class="p col-3">
-        <p-card styleClass="d-orders" >
+        <p-card styleClass="d-orders">
           <div class="d-items">
             <div>
-              <i class="pi pi-shopping-cart icon"> </i><br>
+              <i class="pi pi-shopping-cart icon"> </i><br />
               <span class="name">Orders</span>
             </div>
-              <span class="number">{{ statistics[0] }}</span>
-            
+            <span class="number">{{ statistics[0] }}</span>
           </div>
         </p-card>
       </div>
       <div class="p col-3">
-        <p-card styleClass="d-products" >
+        <p-card styleClass="d-products">
           <div class="d-items">
             <div>
-              <i class="pi pi-briefcase icon"> </i><br>
+              <i class="pi pi-briefcase icon"> </i><br />
               <span class="name">Products</span>
             </div>
-              <span class="number">{{ statistics[1] }}</span>
-            
+            <span class="number">{{ statistics[1] }}</span>
           </div>
         </p-card>
       </div>
       <div class="p col-3">
-        <p-card styleClass="d-users" >
+        <p-card styleClass="d-users">
           <div class="d-items">
             <div>
-              <i class="pi pi-users icon"> </i><br>
+              <i class="pi pi-users icon"> </i><br />
               <span class="name">Users</span>
             </div>
-              <span class="number">{{ statistics[2] }}</span>
-            
+            <span class="number">{{ statistics[2] }}</span>
           </div>
         </p-card>
       </div>
       <div class="p col-3">
-        <p-card styleClass="d-totalsales" >
+        <p-card styleClass="d-totalsales">
           <div class="d-items">
             <div>
-              <i class="pi pi-dollar icon"> </i><br>
+              <i class="pi pi-dollar icon"> </i><br />
               <span class="name">Total Sales</span>
             </div>
-              <span class="number">{{ statistics[3] | currency}}</span>
-            
+            <span class="number">{{ statistics[3] | currency }}</span>
           </div>
         </p-card>
       </div>
     </div>
-  </p-card> 
+  </p-card>
 </div>
