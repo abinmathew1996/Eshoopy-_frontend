@@ -1,0 +1,22 @@
+<div class="products-page">
+  <div class="p grid">
+    <div class="p col-3">
+      <h4>Categories</h4>
+      <div class="field-checkbox" *ngFor="let category of categories">
+        <p-checkbox
+          [(ngModel)]="checked"
+          [binary]="true"
+          [inputId]="category.id"
+        ></p-checkbox>
+        <label for="{{category.id}}">{{ category.name }}</label>
+      </div>
+    </div>
+    <div class="p col-9">
+      <div class="p grid">
+        <div class="p col-4" *ngFor="let product of products">
+          <products-product-item [product]="product"></products-product-item>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

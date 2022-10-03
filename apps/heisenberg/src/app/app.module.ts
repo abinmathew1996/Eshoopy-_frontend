@@ -4,18 +4,17 @@ import { UiModule } from '../../../../libs/ui/src/lib/ui.module';
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { ProductListComponent } from './product-list/product-list.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { AccordionModule } from 'primeng/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavComponent } from './shared/nav/nav.component';
-import { ProductsModule } from 'libs/products/src/lib/products.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ProductsModule } from '@aphrodite/products';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
-  { path: 'Product', component: ProductListComponent },
 ];
 
 @NgModule({
@@ -23,7 +22,6 @@ const routes: Routes = [
     AppComponent,
     NxWelcomeComponent,
     HomePageComponent,
-    ProductListComponent,
     HeaderComponent,
     FooterComponent,
     NavComponent,
@@ -31,10 +29,11 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
+    HttpClientModule,
     AccordionModule,
     BrowserAnimationsModule,
-    ProductsModule,
-    UiModule
+    UiModule,
+    ProductsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
