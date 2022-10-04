@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'aphrodite-footer',
+  selector: 'heisenberg-footer',
   templateUrl: './footer.component.html',
 })
 export class FooterComponent implements OnInit {

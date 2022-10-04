@@ -3,4 +3,5 @@ export class category {
   name?: any;
   icon?: any;
   color?: string;
+  checked?:boolean;
 }

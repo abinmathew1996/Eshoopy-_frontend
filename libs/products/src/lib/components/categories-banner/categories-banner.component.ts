@@ -4,7 +4,7 @@ import { category } from '../../models/category';
 import { CategoriesService } from '../../services/categories.service';
 
 @Component({
-  selector: 'product-categories-banner',
+  selector: 'products-categories-banner',
   templateUrl: './categories-banner.component.html',
   styles: [],
 })
@@ -17,9 +17,7 @@ export class CategoriesBannerComponent implements OnInit, OnDestroy {
     this.categoriesService
       .getCategories()
       .pipe(takeUntil(this.endSubs$))
-      .subscribe((categories) => {
-        console.log(categories);
-        
+      .subscribe((categories) => {        
         this.categories = categories;
       });
   }

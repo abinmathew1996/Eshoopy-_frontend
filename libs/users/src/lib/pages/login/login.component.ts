@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         },
        error: (error) => {
-          console.log(error);
           this.authError = true;
           if (error.status !== 400) {
             this.authMessage = 'Error in the server, Plase try again later';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'aphrodite-header',
+  selector: 'heisenberg-header',
   templateUrl: './header.component.html',
 })
 export class HeaderComponent implements OnInit {

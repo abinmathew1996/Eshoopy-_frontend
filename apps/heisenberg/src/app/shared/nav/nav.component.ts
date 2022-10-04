@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'heisenburg',
+  selector: 'heisenberg-nav',
   templateUrl: './nav.component.html',
   styles: [],
 })

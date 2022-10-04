@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "aphrodite",
+            "prefix": "heisenberg",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "aphrodite",
+            "prefix": "heisenberg",
             "style": "kebab-case"
           }
         ],
