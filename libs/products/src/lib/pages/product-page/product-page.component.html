@@ -1,7 +1,7 @@
 <div class="product-page" *ngIf="product">
   <div class="p grid">
     <div class="p col-6">
-     <ui-gallery [images]="product.images"></ui-gallery>
+     <!-- <ui-gallery [images]="product['images']"></ui-gallery> -->
     </div>
     <div class="p col-6 product">
       <h2 class="product-name">{{ product.name }}</h2>
@@ -13,7 +13,7 @@
       </div>
       <div class="product-price">
         {{ product.price | currency }}
-        <span class="price-before">{{ product.price + 18 | currency }}</span>
+        <span class="price-before">{{ product.price  | currency }}</span>
       </div>
       <div class="product-quantity">
         <div class="field col-12 md:col-3 p-0">
@@ -23,7 +23,7 @@
             mode="decimal"
             [showButtons]="true"
             inputId="quantity"
-            [min]="0"
+            [min]="1"
             [max]="100"
           >
           </p-inputNumber>
@@ -43,7 +43,7 @@
           type="button"
           label="Add to cart"
           class="p-button-rounded"
-          (onClick)="addProductToCart()"
+          (click)="addProductToCart()"
         ></button>
       </div>
     </div>

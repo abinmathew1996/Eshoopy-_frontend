@@ -89,7 +89,7 @@ export class CategoriesFormComponent implements OnInit , OnDestroy {
           summary: 'Success',
           detail:'Category is created' ,
         });
-        // this.router.navigateByUrl('categories');
+        this.router.navigateByUrl('categories');
       },
       error: (error) => {
         this.messageService.add({
@@ -109,11 +109,13 @@ export class CategoriesFormComponent implements OnInit , OnDestroy {
         this.editMode = true;
         this.currentCategoryID = params['id'];
         this.categoryservice.getCategory(params['id']).pipe(takeUntil(this.endsubs$)).subscribe((category) => {
-          // console.log("category");
+          // console.log(category);
 
           this.form.controls.name.setValue(category.name);
           this.form.controls.icon.setValue(category.icon);
           this.form.controls.color.setValue(category.color);
+
+          //  console.log(category);
         });
       }
     });

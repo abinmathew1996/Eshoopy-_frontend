@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ordersService } from '@aphrodite/orders';
+import { ordersService,ORDER_STATUS } from '@aphrodite/orders';
 import { MessageService } from 'primeng/api';
 import { Subject, takeUntil } from 'rxjs';
-import { ORDER_STATUS } from '../order.constants';
 @Component({
   selector: 'admin-orders-detail',
   templateUrl: './orders-detail.component.html',

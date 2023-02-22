@@ -4,6 +4,7 @@ import { map, Observable } from 'rxjs';
 import { user } from '../models/user';
 import { environment } from '@env/environment';
 import * as countriesLib from 'i18n-iso-countries';
+// import { UsersFacade } from '../state/users.facade';
 declare const require: (arg0: string) => countriesLib.LocaleData;
 
 @Injectable({
@@ -11,8 +12,8 @@ declare const require: (arg0: string) => countriesLib.LocaleData;
 })
 export class UsersService {
   apiURLUser = environment.apiURL + 'users';
-
-  constructor(private http: HttpClient) {
+  // private userFacede: UsersFacade
+  constructor(private http: HttpClient, ) {
     countriesLib.registerLocale(require('i18n-iso-countries/langs/en.json'));
   }
 
@@ -24,7 +25,9 @@ export class UsersService {
   }
 
   createUser(user: FormData): Observable<user> {
-    return this.http.post<user>(this.apiURLUser, user,{ withCredentials: false });
+    return this.http.post<user>(this.apiURLUser, user, {
+      withCredentials: false,
+    });
   }
 
   updateUser(user: user): Observable<user> {
@@ -34,7 +37,7 @@ export class UsersService {
   deleteUser(userId: string): Observable<any> {
     return this.http.delete<any>(`${this.apiURLUser}/${userId}`);
   }
-  
+
   getUsersCount(): Observable<number> {
     return this.http
       .get<number>(`${this.apiURLUser}/get/count`)
@@ -54,4 +57,16 @@ export class UsersService {
   getCountry(countryKey: string): string {
     return countriesLib.getName(countryKey, 'en');
   }
+
+  // initAppSection() {
+  //   this.userFacede.buildUserSession();
+  // }
+  // observeCurrentUser(){
+  //   return this.userFacede.currentUser$;
+  // }
+
+
+  // isCurrentUserAuth(){
+  //   return this.userFacede.isAuthenticated$;
+  // }
 }

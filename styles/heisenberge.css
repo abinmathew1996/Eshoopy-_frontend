@@ -25,6 +25,8 @@
 /* Libs */
 @import './libs/ui/ui.css';
 @import './libs/products/products.css';
+@import './libs/orders/order.css';
+
 
 
 .container {

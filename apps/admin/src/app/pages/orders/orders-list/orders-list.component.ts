@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ordersService } from '@aphrodite/orders';
+import { ordersService,ORDER_STATUS } from '@aphrodite/orders';
 import { Subject, takeUntil } from 'rxjs';
 import { Order } from '../../../../../../../libs/orders/src/lib/models/order';
-import {ORDER_STATUS} from '../order.constants'
 @Component({
   selector: 'admin-orders-list',
   templateUrl: './orders-list.component.html',
